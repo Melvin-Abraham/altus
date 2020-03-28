@@ -634,14 +634,17 @@ if (!singleInstanceLock) {
                 trayIcon = null;
                 trayIcon = undefined;
             }
+            
+            let exitPromptSetting = settings.get('settings').find(s => s.id === 'exitPrompt');
+            let tabBarSetting = settings.get('settings').find(s => s.id === 'tabBar');
 
-            if (settings.get('settings').find(s => s.id === 'exitPrompt').value === true) {
+            if (exitPromptSetting && exitPromptSetting.value === true) {
                 app.showExitPrompt = true;
             } else {
                 app.showExitPrompt = false;
             }
 
-            if (settings.get('settings').find(s => s.id === 'tabBar').value === true) {
+        if (tabBarSetting && tabBarSetting.value === true) {
                 mainWindow.webContents.send('set-tabbar', true);
             } else {
                 mainWindow.webContents.send('set-tabbar', false);
